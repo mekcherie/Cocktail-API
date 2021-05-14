@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <title>Cocktail API</title>
+</head>
+<body>
+  <div class="container">
+    <p>Cocktail: <span id= "taste_like" ></span></p>
+    <p id= "taste_like"></p>
+      
+    <form id="form">
+      <input 
+        id="name" 
+        type="words" 
+        placeholder="Cocktail id"
+        title="Please Enter a valid Cocktail name"
+        pattern="^\d{5}(?:[-\s]\d{4})?$"
+      >
+      <button type="submit">Search</button>
+    </form>
+  </div>
+
+  <script type="module">
+    import { getCocktailByname} from './src/index.js';
+    import { getCocktailByid} from './src/index.js';
+    
+    const tempEl = document.getElementById('temp')
+    const taste_likeEl = document.getElementById('taste_like')
+    const descEl = document.getElementById('desc')
+    const formEl = document.getElementById('form')
+    const nameInput = document.getElementById('name')
+    const idInput = document.getElementById('name')
+    
+
+    formEl.addEventListener('submit', (e) => {
+      e.preventDefault()
+
+      const name = nameInput.value
+      const apiKey = '467355df4c808dd6134a3b64e9ace282'
+      const units = 'imperial'
+
+      getCocktailByname(apiKey, name, units) 
+      .then((json) => {
+        tempEl.innerHTML = json.temp
+        taste_likeEl.innerHTML = json.taste_like
+        descEl.innerHTML = date.description
+      },) .catch(err => console.log(err.message))
+    })
+         
+  </script>
+</body>
+</html>
